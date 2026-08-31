@@ -6,7 +6,8 @@
     <ScrollView>
         <VerticalStackLayout
             Padding="30,0"
-            Spacing="25">
+            Spacing="25"
+            BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Gray600}}">
 
             <Label
                 Text="FishDex"
@@ -88,13 +89,6 @@
                 Text="Record Catch"
                 Clicked="OnRecordCatchClicked"
             />
-
-            <Button
-                x:Name="CounterBtn"
-                Text="Click me" 
-                SemanticProperties.Hint="Counts the number of times you click"
-                Clicked="OnCounterClicked"
-                HorizontalOptions="Fill" />
         </VerticalStackLayout>
     </ScrollView>
 

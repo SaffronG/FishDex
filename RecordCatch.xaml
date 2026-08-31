@@ -1,101 +1,33 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="FishDex.RecordCatchPage">
+             x:Class="FishDex.RecordCatchPage"
+             BackgroundColor="#80000000">
+    <Grid VerticalOptions="Center" HorizontalOptions="Center" Padding="30">
+        <Border WidthRequest="300"
+                HeightRequest="400"
+                BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Gray600}, Default={StaticResource White}}"
+                StrokeThickness="5"
+                Stroke="#40FFFFFF">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="16"/>
+            </Border.StrokeShape>
+            <VerticalStackLayout Padding="20" Spacing="15" VerticalOptions="Center" HorizontalOptions="Center">
+                <Label
+                                Text="Record Catch"
+                                Style="{StaticResource Headline}"
+                                SemanticProperties.HeadingLevel="Level1" />
 
-    <ScrollView>
-        <VerticalStackLayout
-            Padding="30,0"
-            Spacing="25">
-
-            <Label
-                Text="FishDex"
-                Style="{StaticResource Headline}"
-                SemanticProperties.HeadingLevel="Level1" />
-
-            <Grid
-                ColumnDefinitions="*, *, *"
-                RowDefinitions="Auto, Auto, Auto"
-                RowSpacing="10"
-                ColumnSpacing="10">
-                <Image
-                    Source="fih.jpeg"
-                    SemanticProperties.Description="Fish Image 1"
-                    HeightRequest="60"
-                    Aspect="AspectFit"
-                    Grid.Row="0"
-                    Grid.Column="0" />
-                <Image
-                    Source="fih.jpeg"
-                    SemanticProperties.Description="Fish Image 2"
-                    HeightRequest="60"
-                    Aspect="AspectFit"
-                    Grid.Row="0"
-                    Grid.Column="1" />
-                <Image
-                    Source="fih.jpeg"
-                    SemanticProperties.Description="Fish Image 3"
-                    HeightRequest="60"
-                    Aspect="AspectFit"
-                    Grid.Row="0"
-                    Grid.Column="2" />
-                <Image
-                    Source="fih.jpeg"
-                    SemanticProperties.Description="Fish Image 4"
-                    HeightRequest="60"
-                    Aspect="AspectFit"
-                    Grid.Row="1"
-                    Grid.Column="0" />
-                <Image
-                    Source="fih.jpeg"
-                    SemanticProperties.Description="Fish Image 5"
-                    HeightRequest="60"
-                    Aspect="AspectFit"
-                    Grid.Row="1"
-                    Grid.Column="1" />
-                <Image
-                    Source="fih.jpeg"
-                    SemanticProperties.Description="Fish Image 6"
-                    HeightRequest="60"
-                    Aspect="AspectFit"
-                    Grid.Row="1"
-                    Grid.Column="2" />
-                <Image
-                    Source="fih.jpeg"
-                    SemanticProperties.Description="Fish Image 7"
-                    HeightRequest="60"
-                    Aspect="AspectFit"
-                    Grid.Row="2"
-                    Grid.Column="0" />
-                <Image
-                    Source="fih.jpeg"
-                    SemanticProperties.Description="Fish Image 8"
-                    HeightRequest="60"
-                    Aspect="AspectFit"
-                    Grid.Row="2"
-                    Grid.Column="1" />
-                <Image
-                    Source="fih.jpeg"
-                    SemanticProperties.Description="Fish Image 9"
-                    HeightRequest="60"
-                    Aspect="AspectFit"
-                    Grid.Row="2"
-                    Grid.Column="2" />
-            </Grid>
-
-            <Button
-                x:Name="RecordCatchBtn"
-                Text="Record Catch"
-                Clicked="OnRecordCatchClicked"
-            />
-
-            <Button
-                x:Name="CounterBtn"
-                Text="Click me" 
-                SemanticProperties.Hint="Counts the number of times you click"
-                Clicked="OnCounterClicked"
-                HorizontalOptions="Fill" />
-        </VerticalStackLayout>
-    </ScrollView>
-
+                <Button 
+                                x:Name="CancelButton"
+                                Text="Cancel"
+                                Clicked="OnCancelClicked"/>
+                <Button
+                                x:Name="SaveButton"
+                                Text="Save"
+                                Clicked="OnSaveClicked"
+                                />
+            </VerticalStackLayout>
+        </Border>
+    </Grid>
 </ContentPage>
