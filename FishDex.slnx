@@ -1,3 +1,7 @@
 <Solution>
-  <Project Path="FishDex.csproj" />
+  <Folder Name="/Pages/" />
+  <Project Path="../FishDex.Test/FishDex.Test.csproj" Id="6432d687-b69f-4ff3-abe7-a8c74bec23bd" />
+  <Project Path="FishDex.csproj">
+    <Deploy Solution="Debug|*" />
+  </Project>
 </Solution>

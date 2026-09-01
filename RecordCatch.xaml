@@ -16,17 +16,28 @@
                 <Label
                                 Text="Record Catch"
                                 Style="{StaticResource Headline}"
-                                SemanticProperties.HeadingLevel="Level1" />
-
-                <Button 
+                                SemanticProperties.HeadingLevel="Level1"/>
+                <Border HeightRequest="200" BackgroundColor="{StaticResource Tertiary}">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="15"/>
+                    </Border.StrokeShape>
+                    <VerticalStackLayout Padding="15">
+                        <Entry x:Name="FishNameEntry" Placeholder="Rainbow Trout"></Entry>
+                        <Entry x:Name="FishWeightEntry" Placeholder="32lbs"></Entry>
+                        <Entry x:Name="FishLengthEntry" Placeholder="8 inches"></Entry>
+                    </VerticalStackLayout>
+                </Border>
+                <HorizontalStackLayout Padding="20" Spacing="20">
+                    
+                    <Button 
                                 x:Name="CancelButton"
                                 Text="Cancel"
                                 Clicked="OnCancelClicked"/>
-                <Button
+                    <Button
                                 x:Name="SaveButton"
                                 Text="Save"
-                                Clicked="OnSaveClicked"
-                                />
+                                Clicked="OnSaveClicked"/>
+                </HorizontalStackLayout>
             </VerticalStackLayout>
         </Border>
     </Grid>
