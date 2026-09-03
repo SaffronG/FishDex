@@ -1,5 +1,6 @@
 <Solution>
   <Folder Name="/Pages/" />
+  <Project Path="FishDexAPI/FishDexAPI.csproj" Id="b5a7220b-5043-4295-970f-4aaad1a9e3c9" />
   <Project Path="src/FishDex/FishDex.csproj">
     <Deploy Solution="Debug|*" />
   </Project>
