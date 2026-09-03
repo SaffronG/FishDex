@@ -1,17 +1,22 @@
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 
 builder.Services.AddControllers();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
+builder.Services.AddOutputCache(options =>
+{
+    options.AddBasePolicy(p => p.Expire(TimeSpan.FromMinutes(10)));
+});
+builder.Services.AddOpenApi("dev"); // Open Api route is {ROOT}/openapi/dev.json
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.MapOpenApi();
+    app.MapOpenApi()
+        .CacheOutput();
 }
 
 app.UseHttpsRedirection();
