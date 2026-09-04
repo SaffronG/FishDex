@@ -1,28 +1,40 @@
 ﻿using System.ComponentModel;
+using Microsoft.Maui.Media;
 
 namespace FishDex.ViewModels
 {
     public partial class RecordCatchViewModel() : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler? PropertyChanged;
         public Command SaveButtonClickedCommand => field ??= new Command(async () =>
         {
-            var page = Application.Current?.MainPage;
-            if (page != null)
+            var nav = Application.Current?.MainPage;
+            if (nav != null)
             {
-                await page.DisplayAlertAsync("Catch Recorded", "Your catch has been recorded successfully!", "OK");
-                await page.Navigation.PopModalAsync();
+                await nav.DisplayAlertAsync("Catch Recorded", "Your catch has been recorded successfully!", "OK");
+                await nav.Navigation.PopModalAsync();
             }
         });
-
         public Command CancelButtonClickedCommand => field ??= new Command(async () =>
         {
-            var page = Application.Current?.MainPage;
-            if (page != null)
+            var nav = Application.Current?.MainPage;
+            if (nav != null)
             {
-                await page.Navigation.PopModalAsync();
+                await nav.Navigation.PopModalAsync();
             }
         });
-
-        public event PropertyChangedEventHandler? PropertyChanged;
+        public Command PickPhotosAsyncCommand => field ??= new Command(async () =>
+        {
+            List<FileResult>? photo = await MediaPicker.Default.PickPhotosAsync();
+            if (photo != null)
+                await photo?.FirstOrDefault()?.OpenReadAsync();
+            
+        });
+        public Command TakePhotoAsyncCommand => field ??= new Command(async () =>
+        {
+            FileResult? photo = await MediaPicker.Default.CapturePhotoAsync();
+            if (photo != null)
+                await photo?.OpenReadAsync();
+        });
     }
 }
