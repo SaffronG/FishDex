@@ -45,4 +45,11 @@ public class FishController : ControllerBase
         var index = _fish.Count - 1;
         return CreatedAtAction(nameof(GetByIndex), new { index }, name);
     }
+    [HttpGet("fromdb")]
+    public ActionResult<string> FromDB([FromQuery] string? source = null)
+    {
+        string query = "SELECT name FROM Fish";
+        // Implementation for fetching fish from database
+        return Ok(query);
+    }
 }

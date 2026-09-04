@@ -1,9 +1,13 @@
 using FishDex.API.Data;
+using Microsoft.EntityFrameworkCore;
 
-var builder = WebApplication.CreateBuilder(args);
+var builder = WebApplication.CreateBuilder(args);   
 builder.Services.AddSingleton<List<string>>(_ => FishData.Seed());
+builder.Services.AddOpenApi();
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+
+builder.AddNpgsqlDbContext<>
 
 builder.Services.AddControllers();
 builder.Services.AddOutputCache(options =>
