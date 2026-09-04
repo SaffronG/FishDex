@@ -1,5 +1,7 @@
-var builder = WebApplication.CreateBuilder(args);
+using FishDex.API.Data;
 
+var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddSingleton<List<string>>(_ => FishData.Seed());
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 

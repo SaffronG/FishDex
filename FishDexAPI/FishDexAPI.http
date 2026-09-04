@@ -1,6 +1,24 @@
 @FishDexAPI_HostAddress = http://localhost:5000
 
-GET {{FishDexAPI_HostAddress}}/weatherforecast/
+GET {{FishDexAPI_HostAddress}}/api/fish?search=salmon
+Accept: application/json
+
+###
+
+GET {{FishDexAPI_HostAddress}}/api/fish?search=trout
+Accept: application/json
+
+###
+
+GET {{FishDexAPI_HostAddress}}/api/fish/byname?search=trout
+Accept: application/json
+
+###
+GET {{FishDexAPI_HostAddress}}/api/fish/byindex?index=2
+Accept: application/json
+
+###
+GET {{FishDexAPI_HostAddress}}/api/fish?index=
 Accept: application/json
 
 ###
