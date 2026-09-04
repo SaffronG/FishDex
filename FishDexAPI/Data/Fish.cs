@@ -11,7 +11,7 @@ namespace FishDex.API.Data
         public string Name { get; set; } = name;
         public int Weight { get; set; } = weight;
 
-        public int Length { get; set; }
+        public int Length { get; set; } = length;
 
     }
 
@@ -22,7 +22,7 @@ public class FishDbContext : DbContext
         {
         }
 
-        public DbSet<Fish> fishList { get; set; } = null!;
+        public DbSet<Fish> FishList { get; set; } = null!;
 
     }
 

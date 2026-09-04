@@ -1,3 +1,6 @@
+using FishDex.API.Data;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -9,6 +12,8 @@ builder.Services.AddOutputCache(options =>
     options.AddBasePolicy(p => p.Expire(TimeSpan.FromMinutes(10)));
 });
 builder.Services.AddOpenApi("dev"); // Open Api route is {ROOT}/openapi/dev.json
+
+builder.Services.AddDbContext<FishDbContext>(o=>o.UseNpgsql());
 
 var app = builder.Build();
 
