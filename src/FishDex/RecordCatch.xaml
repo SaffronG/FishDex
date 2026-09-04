@@ -4,8 +4,8 @@
              x:Class="FishDex.RecordCatchPage"
              BackgroundColor="#80000000">
     <Grid VerticalOptions="Center" HorizontalOptions="Center" Padding="30">
-        <Border WidthRequest="300"
-                HeightRequest="400"
+        <Border WidthRequest="350"
+                HeightRequest="600"
                 BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Gray600}, Default={StaticResource White}}"
                 StrokeThickness="5"
                 Stroke="#40FFFFFF">
@@ -17,7 +17,7 @@
                                 Text="Record Catch"
                                 Style="{StaticResource Headline}"
                                 SemanticProperties.HeadingLevel="Level1"/>
-                <Border HeightRequest="200" BackgroundColor="{StaticResource Tertiary}">
+                <Border HeightRequest="400" WidthRequest="250" BackgroundColor="{StaticResource Tertiary}">
                     <Border.StrokeShape>
                         <RoundRectangle CornerRadius="15"/>
                     </Border.StrokeShape>
@@ -25,10 +25,35 @@
                         <Entry x:Name="FishNameEntry" Placeholder="Rainbow Trout"></Entry>
                         <Entry x:Name="FishWeightEntry" Placeholder="32lbs"></Entry>
                         <Entry x:Name="FishLengthEntry" Placeholder="8 inches"></Entry>
+                        <HorizontalStackLayout VerticalOptions="End" Padding="20" Spacing="30">
+                            <Border HeightRequest="50" WidthRequest="50">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="15"></RoundRectangle> 
+                                </Border.StrokeShape>
+                                <Button 
+                                    x:Name="UploadPhotoImage" 
+                                    ImageSource="upload_icon.png" 
+                                    HeightRequest="30" 
+                                    WidthRequest="30"
+                                    Command="{Binding PickPhotosAsyncCommand}"
+                                    />
+                            </Border>
+                            <Border HeightRequest="100" WidthRequest="100">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="15"></RoundRectangle>
+                                </Border.StrokeShape>
+                                <Button 
+                                    x:Name="TakePhotoImage" 
+                                    ImageSource="camera_icon.png" 
+                                    HeightRequest="100" 
+                                    WidthRequest="100"
+                                    Command="{Binding TakePhotoAsyncCommand}"
+                                    />
+                            </Border>
+                        </HorizontalStackLayout>
                     </VerticalStackLayout>
                 </Border>
-                <HorizontalStackLayout Padding="20" Spacing="20">
-                    
+                <HorizontalStackLayout Padding="20" Spacing="20" VerticalOptions="Center" HorizontalOptions="Center">
                     <Button 
                                 x:Name="CancelButton"
                                 Text="Cancel"
