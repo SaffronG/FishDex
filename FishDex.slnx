@@ -1,4 +1,6 @@
 <Solution>
+  <Folder Name="/Pages/" />
+  <Project Path="AppHost1/AppHost1.csproj" Id="91cd02ff-97e3-4d52-b791-ce3a879e5f9f" />
   <Project Path="FishDex.Testing/FishDex.Testing.csproj" Id="36a8bf48-ef4c-44f2-938e-0d47ef6c112c" />
   <Project Path="FishDexAPI/FishDex.API.csproj" Id="b5a7220b-5043-4295-970f-4aaad1a9e3c9" />
   <Project Path="src/FishDex/FishDex.Maui.csproj">
