@@ -6,8 +6,13 @@ public static class FishData
     {
         "Bonneville Cutthroat Trout",
         "Rainbow Trout",
+        "Tiger Trout",
+        "Brook Trout",
+        "Brown Trout",
+        "Golden Trout",
         "June Sucker",
         "Walleye",
         "Kokanee Salmon"
+       
     };
 }
