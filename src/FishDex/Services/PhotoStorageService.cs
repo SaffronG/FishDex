@@ -1,13 +1,13 @@
 ﻿using FishDex.Models;
 using System.Text.Json;
 
-namespace FishDex;
+namespace FishDex.Services;
 
 /// <summary>
 /// This class provides methods for storing and retrieving images of fish catches in local storage. It allows adding images to local storage, loading the library of stored images, and persisting the library to a JSON file.
 /// </summary>
 
-public class LocalPhotoStorage
+public class PhotoStorageService
 {
     /// <summary>
     /// Adds an image to local storage and updates the library of stored images. The image is saved with a filename based on the associated fish name, and the library is persisted to a JSON file.

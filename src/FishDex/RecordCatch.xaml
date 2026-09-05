@@ -28,7 +28,7 @@
                         <Entry x:Name="FishLengthEntry" Placeholder="8 inches" Text="{Binding FishLengthEntry}"></Entry>
                         <Image x:Name="FishImage" MaximumHeightRequest="200" MaximumWidthRequest="200" Aspect="AspectFit" Source="{Binding FishImageSource}" />
                         <HorizontalStackLayout VerticalOptions="End" Padding="20" Spacing="30">
-                            <Border HeightRequest="50" WidthRequest="50">
+                            <Border HeightRequest="50" WidthRequest="50" BackgroundColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}">
                                 <Border.StrokeShape>
                                     <RoundRectangle CornerRadius="15"></RoundRectangle> 
                                 </Border.StrokeShape>

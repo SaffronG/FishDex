@@ -1,8 +1,9 @@
-﻿using System.ComponentModel;
+﻿using FishDex.Services;
+using System.ComponentModel;
 
 namespace FishDex.ViewModels;
 
-public partial class RecordCatchViewModel() : INotifyPropertyChanged
+public partial class RecordCatchPageViewModel() : INotifyPropertyChanged
 {
     public event PropertyChangedEventHandler? PropertyChanged;
     public string FishNameEntry { get; set; } = "Rainbow Trout";
@@ -26,7 +27,7 @@ public partial class RecordCatchViewModel() : INotifyPropertyChanged
         if (NavHandle != null)
         {
             await NavHandle.DisplayAlertAsync("Catch Recorded", "Your catch has been recorded successfully!", "OK");
-            await LocalPhotoStorage.AddImageToLocalStorage(File.OpenRead(FishImageSource), FishNameEntry);
+            await PhotoStorageService.AddImageToLocalStorage(File.OpenRead(FishImageSource), FishNameEntry);
             await NavHandle.Navigation.PopModalAsync();
         }
     });

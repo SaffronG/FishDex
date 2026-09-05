@@ -1,14 +1,13 @@
 ﻿using FishDex.ViewModels;
 
-namespace FishDex
-{
-    public partial class MainPage : ContentPage
-    {
+namespace FishDex;
 
-        public MainPage()
-        {
-            InitializeComponent();
-            BindingContext = new MainPageViewModel();
-        }
+public partial class MainPage : ContentPage
+{
+
+    public MainPage()
+    {
+        InitializeComponent();
+        BindingContext = new MainPageViewModel(new Services.ApiService());
     }
 }

@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:models="clr-namespace:FishDex.Models" xmlns:viewmodels="clr-namespace:FishDex.ViewModels" x:DataType="viewmodels:MainPageViewModel"
+             xmlns:models="clr-namespace:FishDex.Models" xmlns:viewmodels="clr-namespace:FishDex.ViewModels"
+             x:DataType="viewmodels:MainPageViewModel"
              x:Class="FishDex.MainPage"
              x:Name="MainPageXaml"
              >
@@ -15,9 +16,12 @@
             <Label
                 Text="FishDex"
                 Style="{StaticResource Headline}"
+                Padding="10"
+                BackgroundColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}"
+                WidthRequest="500"
                 SemanticProperties.HeadingLevel="Level1" 
             />
-            <CollectionView HeightRequest="600" ItemsSource="{Binding FishList}">
+            <CollectionView HeightRequest="580" ItemsSource="{Binding FishList}">
                 <CollectionView.ItemsLayout>
                     <GridItemsLayout Orientation="Vertical" Span="3"/>
                 </CollectionView.ItemsLayout>
