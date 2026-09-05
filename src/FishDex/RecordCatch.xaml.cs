@@ -6,6 +6,7 @@ public partial class RecordCatchPage : ContentPage
     public RecordCatchPage()
     {
         InitializeComponent();
+        
         BindingContext = new RecordCatchViewModel();
     }
 }

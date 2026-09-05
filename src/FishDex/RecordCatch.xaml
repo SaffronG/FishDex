@@ -21,10 +21,12 @@
                     <Border.StrokeShape>
                         <RoundRectangle CornerRadius="15"/>
                     </Border.StrokeShape>
+                    <ScrollView>
                     <VerticalStackLayout Padding="15">
-                        <Entry x:Name="FishNameEntry" Placeholder="Rainbow Trout"></Entry>
-                        <Entry x:Name="FishWeightEntry" Placeholder="32lbs"></Entry>
-                        <Entry x:Name="FishLengthEntry" Placeholder="8 inches"></Entry>
+                        <Entry x:Name="FishNameEntry" Placeholder="Rainbow Trout" Text="{Binding FishNameEntry}"></Entry>
+                        <Entry x:Name="FishWeightEntry" Placeholder="32lbs" Text="{Binding FishWeightEntry}"></Entry>
+                        <Entry x:Name="FishLengthEntry" Placeholder="8 inches" Text="{Binding FishLengthEntry}"></Entry>
+                        <Image x:Name="FishImage" MaximumHeightRequest="200" MaximumWidthRequest="200" Aspect="AspectFit" Source="{Binding FishImageSource}" />
                         <HorizontalStackLayout VerticalOptions="End" Padding="20" Spacing="30">
                             <Border HeightRequest="50" WidthRequest="50">
                                 <Border.StrokeShape>
@@ -52,6 +54,7 @@
                             </Border>
                         </HorizontalStackLayout>
                     </VerticalStackLayout>
+                    </ScrollView>
                 </Border>
                 <HorizontalStackLayout Padding="20" Spacing="20" VerticalOptions="Center" HorizontalOptions="Center">
                     <Button 

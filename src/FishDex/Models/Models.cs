@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
-
-namespace FishDex.Models
+﻿namespace FishDex.Models
 {
     public record Fish
     {
@@ -23,5 +18,18 @@ namespace FishDex.Models
     {
         public required string Name { get; set; }
         public string? County { get; set; }
+    }
+    public record StoredFishPic
+    {
+        public StoredFishPic(string fileName, string fishAssociation) 
+        {
+            FileName = fileName;
+            FishAssociation = fishAssociation;
+            DateAdded = DateTime.Now;
+        }
+
+        public string FileName { get; set; }
+        public string FishAssociation { get; set; }
+        public DateTime DateAdded { get; set; }
     }
 }

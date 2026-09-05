@@ -1,5 +1,4 @@
-﻿using k8s.KubeConfigModels;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace FishDex.API.Data
 {
@@ -17,6 +16,5 @@ namespace FishDex.API.Data
 public class FishDbContext(DbContextOptions<FishDbContext> options) : DbContext(options)
     {
         public DbSet<Fish> FishList { get; set; } = null!;
-
     }
 }
