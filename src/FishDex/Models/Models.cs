@@ -1,18 +1,24 @@
 ﻿namespace FishDex.Models
 {
-    public record Fish
+    public class Fish
     {
-        public required string Name { get; set; }
-        //
-        //public int Length { get; set; }
-        //
-        //public int Weight { get; set; }
-        //
-        //public DateTime TimeCaught { get; set; }
-        //
-        //public required Location LocationCaught { get; set; }
-        //
-        //public string? Notes { get; set; }
+        public Fish(string Name, decimal Length, decimal Weight, Location? LocationCaught = null)
+        {
+            this.Name = Name;
+            this.Length = Length;
+            this.Weight = Weight;
+            TimeCaught = DateTime.Now;
+            if (LocationCaught is null) 
+                LocationCaught = new Location { Name = "Unknown" };
+            else 
+                this.LocationCaught = LocationCaught;
+        }
+        public string Name { get; set; }
+        public decimal Length { get; set; }
+        public decimal Weight { get; set; }
+        public DateTime TimeCaught { get; set; }
+        public Location? LocationCaught { get; set; }
+        public string? Notes { get; set; }
     }
     public record Location
     {
