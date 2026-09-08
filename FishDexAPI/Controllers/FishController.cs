@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using FishDex.API.Data;
+using FishDex.API.Models;
 
 namespace FishDex.API.Controllers;
 
@@ -7,10 +9,12 @@ namespace FishDex.API.Controllers;
 public class FishController : ControllerBase
 {
     private readonly List<string> _fish;
+    private readonly FishDexContext _db;
 
-    public FishController(List<string> fish)
+    public FishController(List<string> fish, FishDexContext db)
     {
         _fish = fish;
+        _db = db;
     }
 
     // GET /api/fish/byname?search=trout
@@ -46,10 +50,14 @@ public class FishController : ControllerBase
         return CreatedAtAction(nameof(GetByIndex), new { index }, name);
     }
     [HttpGet("fromdb")]
-    public ActionResult<string> FromDB([FromQuery] string? source = null)
+    public ActionResult<List<string>> FromDB([FromQuery] string? source = null)
     {
-        string query = "SELECT name FROM Fish";
-        // Implementation for fetching fish from database
-        return Ok(query);
+        var names = _db.Fish
+            .AsQueryable()
+            .Where(f => string.IsNullOrWhiteSpace(source) || f.Name.Contains(source, StringComparison.OrdinalIgnoreCase))
+            .Select(f => f.Name)
+            .ToList();
+
+        return Ok(names);
     }
 }
