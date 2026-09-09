@@ -9,5 +9,9 @@
     <ShellContent
         ContentTemplate="{DataTemplate local:MainPage}"
         Route="MainPage" />
+    
+    <ShellContent
+        ContentTemplate="{DataTemplate local:RecordCatchPage}"
+        Route="RecordCatchPage" />
 
 </Shell>

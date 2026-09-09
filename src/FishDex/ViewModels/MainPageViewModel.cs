@@ -38,12 +38,13 @@ public partial class MainPageViewModel : INotifyPropertyChanged
     public Command LoadFishDataCommand => field ??= new Command(async () => await _apiService.GetFishAsync());
     public Command RecordCatchClickedCommand => field ??= new Command(async () =>
     {
-        if (NavHandle != null)
-            await NavHandle.Navigation.PushModalAsync(new RecordCatchPage());
+        await Shell.Current.GoToAsync("RecordCatch"); // navigate to the RecordCatchPage
     });
     public Command FishTileClickedCommand => field ??= new Command<Fish>(async (fish) =>
     {
-        if (NavHandle != null)
-            await NavHandle.Navigation.PushModalAsync(new FishDetailPage(fish));
+            await Shell.Current.GoToAsync("details", new Dictionary<string, object> // navigate to the FishDetailPage with the selected fish as a parameter
+            {
+                { "fish", fish }
+            });
     });
 }

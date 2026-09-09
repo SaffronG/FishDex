@@ -33,10 +33,7 @@ public partial class RecordCatchPageViewModel() : INotifyPropertyChanged
     });
     public Command CancelButtonClickedCommand => field ??= new Command(async () =>
     {
-        if (NavHandle != null)
-        {
-            await NavHandle.Navigation.PopModalAsync();
-        } 
+        await Shell.Current.GoToAsync("..");
     });
     public Command PickPhotosAsyncCommand => field ??= new Command(async () =>
     {

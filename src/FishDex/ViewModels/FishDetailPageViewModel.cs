@@ -13,6 +13,6 @@ internal class FishDetailPageViewModel(Fish fish) : INotifyPropertyChanged
     public event PropertyChangedEventHandler? PropertyChanged;
     public Command CloseDetailModalCommand => field ??= new(async () =>
     {
-        await Application.Current?.MainPage?.Navigation?.PopModalAsync();
+        await Shell.Current.GoToAsync(".."); // basically a "back" navigation to close the modal
     });
 }

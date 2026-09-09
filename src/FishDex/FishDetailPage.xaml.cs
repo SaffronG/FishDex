@@ -9,6 +9,7 @@ namespace FishDex
         public FishDetailPage()
         {
             InitializeComponent();
+            Routing.RegisterRoute("details", typeof(FishDetailPage));
         }
 
         // Construct with a Fish and reuse the parameterless ctor
