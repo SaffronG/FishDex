@@ -62,7 +62,7 @@ jobs:
         with:
           push: true
           tags: ghcr.io/${{ env.REPO }}:${{ github.sha }}
-          file: ./FishDex.API/Dockerfile
+          file: ./Dockerfile
 
   deploy:
     permissions:
