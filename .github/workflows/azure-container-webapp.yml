@@ -27,11 +27,11 @@
 name: Build and deploy a container to an Azure Web App
 
 env:
-  AZURE_WEBAPP_NAME: fishdex-api  # set this to the name of your Azure Web App
+  AZURE_WEBAPP_NAME: fishdex-api # set this to the name of your Azure Web App
 
 on:
   push:
-    branches: [ "master" ]
+    branches: ["master"]
   workflow_dispatch:
 
 permissions:
@@ -57,12 +57,24 @@ jobs:
       - name: Lowercase the repo name and username
         run: echo "REPO=${GITHUB_REPOSITORY,,}" >>${GITHUB_ENV}
 
-      - name: Build and push container image to registry
-        uses: docker/build-push-action@0565240e2d4ab88bba5387d719585280857ece09 # v5.0.0
-        with:
-          push: true
-          tags: ghcr.io/${{ env.REPO }}:${{ github.sha }}
-          file: ./FishDexAPI/Dockerfile
+      # - name: Build and push container image to registry
+      #   uses: docker/build-push-action@0565240e2d4ab88bba5387d719585280857ece09 # v5.0.0
+      #   with:
+      #     push: true
+      #     tags: ghcr.io/${{ env.REPO }}:${{ github.sha }}
+      #     file: ./compose.yaml
+
+      - name: Build and push container images via Docker Compose
+        run: |
+          # 1. Export env variables so docker-compose.yaml can read them
+          export REPO=${{ env.REPO }}
+          export TAG=${{ github.sha }}
+
+          # 2. Build all containers specified in the compose file
+          docker compose -f ./docker-compose.yaml build
+
+          # 3. Push the images to GHCR
+          docker compose -f ./docker-compose.yaml pus
 
   deploy:
     permissions:
@@ -70,7 +82,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     environment:
-      name: 'Development'
+      name: "Development"
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     steps:
@@ -83,4 +95,4 @@ jobs:
         with:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-          images: 'ghcr.io/${{ env.REPO }}:${{ github.sha }}'
+          images: "ghcr.io/${{ env.REPO }}:${{ github.sha }}"

@@ -1,5 +1,7 @@
+version: "3.8"
 services:
   fishdex-api:
+    image: ghcr.io/${REPO}:${TAG}
     build:
       context: .
       dockerfile: /FishDexAPI/Dockerfile
