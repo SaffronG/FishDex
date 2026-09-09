@@ -1,8 +1,9 @@
 services:
   fishdex-api:
     build:
-      context: ./FishDexAPI
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: /FishDexAPI/Dockerfile
     container_name: fishdex-api
     ports:
       - "8080:8080"
+
