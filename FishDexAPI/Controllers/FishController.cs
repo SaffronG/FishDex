@@ -5,7 +5,7 @@ using FishDex.API.Models;
 namespace FishDex.API.Controllers;
 
 [ApiController]
-[Route("api/[controller ]")]
+[Route("api/[controller]")]
 public class FishController(List<string> _fish, FishDexContext db) : ControllerBase
 {
     private readonly List<string> fish = _fish;
