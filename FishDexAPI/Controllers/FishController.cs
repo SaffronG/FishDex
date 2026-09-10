@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using FishDex.API.Data;
+using FishDex.API.Models;
 
 namespace FishDex.API.Controllers;
 
@@ -6,11 +8,14 @@ namespace FishDex.API.Controllers;
 [Route("api/[controller]")]
 public class FishController() : ControllerBase
 {
-    private readonly List<string> fish = [];
+    private readonly List<string> _fish;
+    private readonly FishDexContext _db;
 
-    // GET /api/fish/test 
-    [HttpGet("test")]
-    public ActionResult<List<string>> TestAPI() => Accepted(new List<string> { "test1", "test2" });
+    public FishController(List<string> fish, FishDexContext db)
+    {
+        _fish = fish;
+        _db = db;
+    }
 
     // GET /api/fish/byname?search=trout
     [HttpGet("byname")]
@@ -43,5 +48,16 @@ public class FishController() : ControllerBase
         fish.Add(name);
         var index = fish.Count - 1;
         return CreatedAtAction(nameof(GetByIndex), new { index }, name);
+    }
+    [HttpGet("fromdb")]
+    public ActionResult<List<string>> FromDB([FromQuery] string? source = null)
+    {
+        var names = _db.Fish
+            .AsQueryable()
+            .Where(f => string.IsNullOrWhiteSpace(source) || f.Name.Contains(source, StringComparison.OrdinalIgnoreCase))
+            .Select(f => f.Name)
+            .ToList();
+
+        return Ok(names);
     }
 }
