@@ -29,6 +29,8 @@ public static class MauiProgram
         builder.Services.AddSingleton<FishDetailPage>();
         builder.Services.AddSingleton<FishDetailPageViewModel>();
         builder.Services.AddSingleton<ApiService>();
+        builder.Services.AddSingleton<INavigationService,ShellNavigationService>();
+        builder.Services.AddSingleton<IApiService,ApiService>();
 
 #if DEBUG
         builder.Logging.AddDebug();

@@ -5,10 +5,10 @@ namespace FishDex;
 public partial class MainPage : ContentPage
 {
 
-    public MainPage()
+    public MainPage(MainPageViewModel view)
     {
         InitializeComponent();
         Routing.RegisterRoute("home", typeof(MainPage));
-        BindingContext = new MainPageViewModel(new Services.ApiService());
+        BindingContext = view;
     }
 }
