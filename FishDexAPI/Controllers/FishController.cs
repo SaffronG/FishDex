@@ -5,17 +5,11 @@ using FishDex.API.Models;
 namespace FishDex.API.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
-public class FishController() : ControllerBase
+[Route("api/[controller ]")]
+public class FishController(List<string> _fish, FishDexContext db) : ControllerBase
 {
-    private readonly List<string> _fish;
-    private readonly FishDexContext _db;
-
-    public FishController(List<string> fish, FishDexContext db)
-    {
-        _fish = fish;
-        _db = db;
-    }
+    private readonly List<string> fish = _fish;
+    private readonly FishDexContext _db = db;
 
     // GET /api/fish/byname?search=trout
     [HttpGet("byname")]
