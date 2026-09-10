@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:viewmodels="clr-namespace:FishDex.ViewModels" x:DataType="viewmodels:FishDetailPageViewModel"
+             x:Class="FishDex.FishDetailPage"
+             BackgroundColor="#80000000">
+    <Grid VerticalOptions="Center" HorizontalOptions="Center" Padding="30">
+        <Border WidthRequest="350"
+                HeightRequest="600"
+                BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Gray600}, Default={StaticResource White}}"
+                StrokeThickness="5"
+                Stroke="#40FFFFFF">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="16"/>
+            </Border.StrokeShape>
+            <VerticalStackLayout Padding="20" Spacing="15" VerticalOptions="Center" HorizontalOptions="Center">
+                <Label
+                                Text="{Binding Name}"
+                                Style="{StaticResource Headline}"
+                                SemanticProperties.HeadingLevel="Level1"/>
+                <Border HeightRequest="400" WidthRequest="250" BackgroundColor="{StaticResource Tertiary}">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="15"/>
+                    </Border.StrokeShape>
+                    <ScrollView>
+                    <VerticalStackLayout Padding="15" Spacing="15">
+                        <Image x:Name="FishImage" MaximumHeightRequest="200" MaximumWidthRequest="200" Aspect="AspectFit" Source="fish_silhouette.png" />
+                        <Label x:Name="FishWeightLabel" Text="{Binding Weight}" />
+                        <Label x:Name="FishLengthLabel" Text="{Binding Length}" />
+                        <Label x:Name="FishTimeCaughtLabel" Text="{Binding TimeCaught}" />
+                        <Label x:Name="FishNotesLabel" Text="{Binding Notes}" />
+                        </VerticalStackLayout>
+                    </ScrollView>
+                </Border>
+                <HorizontalStackLayout Padding="20" Spacing="20" VerticalOptions="Center" HorizontalOptions="Center">
+                    <Button 
+                        x:Name="CloseModalButton"
+                        Text="Close"
+                        Command="{Binding CloseDetailModalCommand}"/>
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
+        </Border>
+    </Grid>
+</ContentPage>

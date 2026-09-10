@@ -1,8 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:models="clr-namespace:FishDex.Models"
+             xmlns:models="clr-namespace:FishDex.Models" xmlns:viewmodels="clr-namespace:FishDex.ViewModels"
+             x:DataType="viewmodels:MainPageViewModel"
              x:Class="FishDex.MainPage"
+             x:Name="MainPageXaml"
              >
 
     <ScrollView>
@@ -14,21 +16,29 @@
             <Label
                 Text="FishDex"
                 Style="{StaticResource Headline}"
+                Padding="10"
+                BackgroundColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}"
+                WidthRequest="500"
                 SemanticProperties.HeadingLevel="Level1" 
             />
-            <CollectionView HeightRequest="600" ItemsSource="{Binding FishList}">
+            <CollectionView HeightRequest="580" ItemsSource="{Binding FishList}">
                 <CollectionView.ItemsLayout>
                     <GridItemsLayout Orientation="Vertical" Span="3"/>
                 </CollectionView.ItemsLayout>
                 <CollectionView.ItemTemplate>
-                    <DataTemplate>
+                    <DataTemplate x:DataType="models:Fish">
                         <Border HeightRequest="100" MaximumWidthRequest="100" Margin="5" Padding="10" BackgroundColor="{StaticResource Tertiary}">
                             <Border.StrokeShape>
                                 <RoundRectangle CornerRadius="10"/>
                             </Border.StrokeShape>
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer 
+                                    Command="{Binding BindingContext.FishTileClickedCommand, Source={x:Reference MainPageXaml}}" 
+                                    CommandParameter="{Binding .}"/> <!--the {Binding .} passes the entire object In this context it is the current Fish object-->
+                            </Border.GestureRecognizers>
                             <VerticalStackLayout>
                                 <Image Source="fish_silhouette.png"></Image>
-                                <Label Text="{Binding .}" HorizontalTextAlignment="Center"/>
+                                <Label x:Name="FishName" Text="{Binding Name}" HorizontalTextAlignment="Center"/>
                             </VerticalStackLayout>
                         </Border>
                     </DataTemplate>
@@ -37,7 +47,7 @@
             <Button
                 x:Name="RecordCatchBtn"
                 Text="Record Catch"
-                Clicked="OnRecordCatchClicked"
+                Command="{Binding RecordCatchClickedCommand}"
             />
         </VerticalStackLayout>
     </ScrollView>

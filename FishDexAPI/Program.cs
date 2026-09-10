@@ -22,6 +22,8 @@ builder.Services.AddOutputCache(options =>
 });
 builder.Services.AddOpenApi("dev"); // Open Api route is {ROOT}/openapi/dev.json
 
+builder.Services.AddDbContext<FishDbContext>(o => o.UseNpgsql());
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
