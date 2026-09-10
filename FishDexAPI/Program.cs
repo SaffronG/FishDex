@@ -25,6 +25,24 @@ builder.Services.AddOpenApi("dev"); // Open Api route is {ROOT}/openapi/dev.json
 builder.Services.AddDbContext<FishDbContext>(o => o.UseNpgsql());
 
 var app = builder.Build();
+//Logging and lifetime services
+var lifetime = app.Services.GetRequiredService<IHostApplicationLifetime>();
+var logger = app.Services.GetRequiredService<ILogger<Program>>();
+
+lifetime.ApplicationStarted.Register(() =>
+{
+    logger.LogInformation("FishDex.API started at {time}.", DateTime.UtcNow);
+});
+
+lifetime.ApplicationStopping.Register(() =>
+{
+    logger.LogInformation("FishDex.API stopping at {time}.", DateTime.UtcNow);
+});
+
+lifetime.ApplicationStopped.Register(() =>
+{
+    logger.LogInformation("FishDex.API stopped at {time}.", DateTime.UtcNow);
+});
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
