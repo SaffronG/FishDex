@@ -9,18 +9,10 @@
 
     <ScrollView>
         <VerticalStackLayout
-            Padding="30,0"
+            Padding="20,40,20,20"
             Spacing="25"
             BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Gray600}}">
 
-            <Label
-                Text="FishDex"
-                Style="{StaticResource Headline}"
-                Padding="10"
-                BackgroundColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}"
-                WidthRequest="500"
-                SemanticProperties.HeadingLevel="Level1" 
-            />
             <CollectionView HeightRequest="580" ItemsSource="{Binding FishList}">
                 <CollectionView.ItemsLayout>
                     <GridItemsLayout Orientation="Vertical" Span="3"/>

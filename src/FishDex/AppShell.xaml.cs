@@ -8,8 +8,7 @@
 
             Routing.RegisterRoute("RecordCatch", typeof(RecordCatchPage));
             Routing.RegisterRoute("Details", typeof(FishDetailPage));
-            Routing.RegisterRoute("MainPage", typeof(MainPage));
-            // Routing.RegisterRoute("Profile", typeof(FishDetailPage));
+            // Routing.RegisterRoute("Profile", typeof(ProfilePage));
         }
     }
 }

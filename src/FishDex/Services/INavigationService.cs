@@ -1,21 +1,10 @@
-﻿namespace FishDex.Services
-{
-    public interface INavigationService
-    {
-        Task NavigateToAsync(string route);
-        Task NavigateToAsync(string route, Dictionary<string, object> parameters);
-    }
-    public class ShellNavigationService : INavigationService
-    {
-        public async Task NavigateToAsync(string route, Dictionary<string, object> parameters)
-        {
-            var query = new Dictionary<string, object>(parameters);
-            await Shell.Current.GoToAsync(route, query);
-        }
+﻿namespace FishDex.Services;
 
-        public async Task NavigateToAsync(string route)
-        {
-            await Shell.Current.GoToAsync(route);
-        }
-    }
+public interface INavigationService
+{
+    public Task NavigateToAsync(string route);
+    public Task NavigateToAsync(string route, Dictionary<string, object> parameters);
+    public Task DisplayAlertAsync(string msg, string desc, string cancel_msg);
+    public Task DisplayPromptAsync(string msg, string desc);
+    public Task DisplayActionSheetAsync(string title, string cancel, string desctruction, params string[] buttons);
 }

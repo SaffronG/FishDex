@@ -28,8 +28,9 @@ public static class MauiProgram
         builder.Services.AddTransient<FishDetailPageViewModel>();
 
         // Services
-        builder.Services.AddSingleton<INavigationService,ShellNavigationService>();
-        builder.Services.AddSingleton<IApiService,ApiService>();
+        builder.Services.AddSingleton<INavigationService, ShellNavigationService>();
+        builder.Services.AddSingleton<IApiService, ApiService>();
+        builder.Services.AddSingleton<IPhotoStorageService, PhotoStorageService>();
 
 #if DEBUG
         builder.Logging.AddDebug();

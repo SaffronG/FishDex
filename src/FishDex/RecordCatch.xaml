@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:viewmodels="clr-namespace:FishDex.ViewModels" x:DataType="viewmodels:RecordCatchViewModel"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:viewmodels="clr-namespace:FishDex.ViewModels" x:DataType="viewmodels:RecordCatchPageViewModel"
              x:Class="FishDex.RecordCatchPage"
+             Shell.PresentationMode="ModalAnimated"
              BackgroundColor="#80000000">
     <Grid VerticalOptions="Center" HorizontalOptions="Center" Padding="30">
         <Border WidthRequest="350"
