@@ -1,6 +1,4 @@
-﻿using FishDex.Models;
-
-using System.Net.Http.Json;
+﻿using System.Net.Http.Json;
 
 namespace FishDex.Services;
 

@@ -1,12 +1,11 @@
-﻿using FishDex.Models;
-using System.Text.Json;
+﻿using System.Text.Json;
 
 namespace FishDex.Services;
 
 /// <summary>
 /// This class provides methods for storing and retrieving images of fish catches in local storage. It allows adding images to local storage, loading the library of stored images, and persisting the library to a JSON file.
 /// </summary>
-public class PhotoStorageService : IPhotoStorageService
+public class PhotoStorageService(INavigationService _navService) : IPhotoStorageService
 {
     /// <summary>
     /// Adds an image to local storage and updates the library of stored images. The image is saved with a filename based on the associated fish name, and the library is persisted to a JSON file.
@@ -27,6 +26,50 @@ public class PhotoStorageService : IPhotoStorageService
         string libraryPersistPath = Path.Combine(FileSystem.AppDataDirectory, "persistence.json");
         string libAsJson = JsonSerializer.Serialize(localLibrary);
         await File.WriteAllTextAsync(libraryPersistPath, libAsJson);
+    }
+
+    public async Task<string?> GetPhotoFromUser(string association)
+    {
+        List<FileResult>? photoList = await MediaPicker.Default.PickPhotosAsync();
+        if (photoList.Count > 0 && _navService != null)
+            try
+            {
+                //Path.Combine(FileSystem.CacheDirectory, photoList?.FirstOrDefault()?.FileName ?? "temp.jpg"), new());
+                var fileName = photoList?.FirstOrDefault()?.FileName ?? "temp.jpg";
+                return Path.Combine(FileSystem.CacheDirectory, fileName);
+            }
+            catch (Exception ex)
+            {
+                await _navService.DisplayAlertAsync("Could not open photo", ex.Message, "OK");
+                return null;
+            }
+        else if (_navService != null)
+        {
+            await _navService.DisplayAlertAsync("No photo selected", "You did not select a photo.", "OK");
+            return null;
+        }
+        return null;
+    }
+
+    public async Task<string?> TakePhotoAsync()
+    {
+        if (MediaPicker.Default.IsCaptureSupported)
+        {
+            FileResult? photo = await MediaPicker.Default.CapturePhotoAsync();
+            if (photo != null)
+            {
+                return Path.Combine(FileSystem.CacheDirectory, photo.FileName);
+            }
+            else // photo is null, user canceled the camera capture
+            {
+                await _navService.DisplayAlertAsync("No Photo taken", "You did not take a photo", "OK");
+            }
+        }
+        else // Camera capture is not supported on this device
+        {
+            await _navService.DisplayAlertAsync("Camera not supported", "Your device does not support camera capture.", "OK");
+        }
+        return null;
     }
 
     /// <summary>

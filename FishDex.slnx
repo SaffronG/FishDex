@@ -3,9 +3,11 @@
   <Project Path="AppHost1/AppHost1.csproj" Id="91cd02ff-97e3-4d52-b791-ce3a879e5f9f" />
   <Project Path="FishDex.AppLogic/FishDex.AppLogic.csproj" Id="ed617af6-22ca-45aa-8b91-2682d2989ca2" />
   <Project Path="FishDex.Dtos/FishDex.Dtos.csproj" Id="038acdc9-a5af-4d06-9f96-82a3dd5742b6" />
+  <Project Path="FishDex.ServerLogic/FishDex.ServerLogic.csproj" Id="7511ba67-8022-4456-9698-ee0f881fb09b" />
+  <Project Path="FishDex.ServerTest/FishDex.ServerTest.csproj" Id="89d251e0-df90-4d30-9bc1-9b2b22fc979c" />
   <Project Path="FishDex.Testing/FishDex.Testing.csproj" Id="36a8bf48-ef4c-44f2-938e-0d47ef6c112c" />
-  <Project Path="FishDexAPI/FishDex.API.csproj" Id="b5a7220b-5043-4295-970f-4aaad1a9e3c9" />
-  <Project Path="src/FishDex/FishDex.Maui.csproj">
+  <Project Path="FishDex.API/FishDex.API.csproj" Id="b5a7220b-5043-4295-970f-4aaad1a9e3c9" />
+  <Project Path="FishDex.Maui/FishDex.Maui.csproj">
     <Deploy Solution="Debug|*" />
   </Project>
 </Solution>

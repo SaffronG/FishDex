@@ -13,7 +13,7 @@ var api = builder.AddProject<Projects.FishDex_API>("FishDexAPI", launchProfileNa
 var publicDevTunnel = builder.AddDevTunnel("devtunnel-public")
     .WithAnonymousAccess()
     .WithReference(api.GetEndpoint("https"));
-var maui = builder.AddMauiProject("FishDexMaui", @"..\src\FishDex\FishDex.Maui.csproj");
+var maui = builder.AddMauiProject("FishDexMaui", @"..\FishDex.Maui\FishDex.Maui.csproj");
 
 maui.AddWindowsDevice()
     .WithReference(api);
@@ -27,6 +27,8 @@ maui.AddAndroidDevice()
     .WithOtlpDevTunnel()
     .WithReference(api, publicDevTunnel)
     .WithExplicitStart();
+
+builder.AddProject<Projects.FishDex_Maui>("fishdex-maui");
 
 builder.Build().Run();
 

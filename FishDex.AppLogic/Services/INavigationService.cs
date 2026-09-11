@@ -1,4 +1,4 @@
-﻿namespace FishDex.Services;
+﻿namespace FishDex.AppLogic.Services;
 
 public interface INavigationService
 {

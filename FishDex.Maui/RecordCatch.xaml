@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:viewmodels="clr-namespace:FishDex.ViewModels" x:DataType="viewmodels:RecordCatchPageViewModel"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:viewmodels="clr-namespace:FishDex.AppLogic.ViewModels;assembly=FishDex.AppLogic" x:DataType="viewmodels:RecordCatchPageViewModel"
              x:Class="FishDex.RecordCatchPage"
              Shell.PresentationMode="ModalAnimated"
              BackgroundColor="#80000000">
@@ -38,7 +38,7 @@
                                     ImageSource="upload_icon.png" 
                                     HeightRequest="30" 
                                     WidthRequest="30"
-                                    Command="{Binding PickPhotosAsyncCommand}"
+                                    Command="{Binding PickPhotoCommand}"
                                     />
                             </Border>
                             <Border HeightRequest="100" WidthRequest="100">
@@ -50,7 +50,7 @@
                                     ImageSource="camera_icon.png" 
                                     HeightRequest="100" 
                                     WidthRequest="100"
-                                    Command="{Binding TakePhotoAsyncCommand}"
+                                    Command="{Binding TakePhotoCommand}"
                                     />
                             </Border>
                         </HorizontalStackLayout>

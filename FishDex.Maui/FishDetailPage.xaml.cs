@@ -1,6 +1,4 @@
-﻿using FishDex.ViewModels;
-
-namespace FishDex
+﻿namespace FishDex
 {
     public partial class FishDetailPage : ContentPage
     {
