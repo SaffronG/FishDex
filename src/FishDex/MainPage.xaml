@@ -41,6 +41,11 @@
                 Text="Record Catch"
                 Command="{Binding RecordCatchClickedCommand}"
             />
+            <Button
+                x:Name="ProfileBtn"
+                Text="Profile"
+                Command="{Binding ProfileClickedCommand}"
+/>
         </VerticalStackLayout>
     </ScrollView>
 

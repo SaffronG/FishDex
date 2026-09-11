@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:viewmodels="clr-namespace:FishDex.ViewModels" x:DataType="viewmodels:ProfilePageViewModel"
+             x:Class="FishDex.ProfilePage"
+             Title="ProfilePage">
+    <VerticalStackLayout>
+        <Label 
+            Text="Welcome to Profile page!"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+        <Button
+            Text="Go Home"
+            Command="{Binding OnToHomeClickedCommand}"
+            />
+    </VerticalStackLayout>
+</ContentPage>

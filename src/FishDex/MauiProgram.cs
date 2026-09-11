@@ -24,6 +24,8 @@ public static class MauiProgram
         builder.Services.AddSingleton<RecordCatchPageViewModel>();
 
         // Transient Pages
+        builder.Services.AddTransient<ProfilePage>();
+        builder.Services.AddTransient<ProfilePageViewModel>();
         builder.Services.AddTransient<FishDetailPage>();
         builder.Services.AddTransient<FishDetailPageViewModel>();
 
