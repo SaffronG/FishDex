@@ -1,10 +1,12 @@
 ﻿using System.ComponentModel;
 using FishDex.Models;
+using FishDex.Services;
 
 namespace FishDex.ViewModels;
 
-internal class FishDetailPageViewModel(Fish fish) : INotifyPropertyChanged
+public class FishDetailPageViewModel(INavigationService navservice, Fish fish) : INotifyPropertyChanged
 {
+    public readonly INavigationService navHandle = navservice;
     public string Name { get; set; } = fish.Name;
     public string Weight { get; set; } = $"Weight: {fish.Weight} lbs";
     public string Length { get; set; } = $"Length: {fish.Length} inches";
@@ -13,6 +15,6 @@ internal class FishDetailPageViewModel(Fish fish) : INotifyPropertyChanged
     public event PropertyChangedEventHandler? PropertyChanged;
     public Command CloseDetailModalCommand => field ??= new(async () =>
     {
-        await Shell.Current.GoToAsync(".."); // basically a "back" navigation to close the modal
+        await navHandle.NavigateToAsync(".."); // basically a "back" navigation to close the modal
     });
 }

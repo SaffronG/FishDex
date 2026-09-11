@@ -3,11 +3,9 @@ using FishDex.ViewModels;
 namespace FishDex;
 public partial class RecordCatchPage : ContentPage
 {
-    public RecordCatchPage()
+    public RecordCatchPage(RecordCatchPageViewModel view)
     {
         InitializeComponent();
-        Routing.RegisterRoute("RecordCatch", typeof(RecordCatchPage));
-
-        BindingContext = new RecordCatchPageViewModel();
+        BindingContext = view;
     }
 }

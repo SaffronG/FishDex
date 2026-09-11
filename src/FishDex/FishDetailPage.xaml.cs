@@ -3,19 +3,20 @@ using FishDex.ViewModels;
 
 namespace FishDex
 {
-    public partial class FishDetailPage : ContentPage 
+    public partial class FishDetailPage : ContentPage, IQueryAttributable 
     {
         // Parameterless ctor used by XAML/runtime
-        public FishDetailPage()
+        public FishDetailPage(FishDetailPageViewModel view)
         {
             InitializeComponent();
-            Routing.RegisterRoute("details", typeof(FishDetailPage));
+            BindingContext = view; 
+        }
+        public void ApplyQueryAttributes(IDictionary<string, object> query)
+        {
+            if (query.TryGetValue("Fish", out var value) && value is Fish fish)
+                BindingContext = fish;
         }
 
         // Construct with a Fish and reuse the parameterless ctor
-        public FishDetailPage(Fish fish) : this()
-        {
-            BindingContext = new FishDetailPageViewModel(fish);
-        }
     }
 }
