@@ -1,5 +1,7 @@
 using FishDex.API.Data;
 using Microsoft.EntityFrameworkCore;
+using OpenTelemetry;
+using OpenTelemetry.Logs;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddSingleton<List<string>>(_ => FishData.Seed());
@@ -23,8 +25,35 @@ builder.Services.AddOutputCache(options =>
 builder.Services.AddOpenApi("dev"); // Open Api route is {ROOT}/openapi/dev.json
 
 builder.Services.AddDbContext<FishDbContext>(o => o.UseNpgsql());
-
+builder.Logging.AddOpenTelemetry(logging =>
+{
+    logging.IncludeFormattedMessage = true;
+    logging.IncludeScopes = true;
+    logging.AddOtlpExporter(otlpOptions =>
+    {
+        otlpOptions.ExportProcessorType = ExportProcessorType.Simple; //Causes more overhead because more calls are made
+    });
+});
 var app = builder.Build();
+
+//Logging and lifetime services
+var lifetime = app.Services.GetRequiredService<IHostApplicationLifetime>();
+var logger = app.Services.GetRequiredService<ILogger<Program>>();
+
+lifetime.ApplicationStarted.Register(() =>
+{
+    logger.LogInformation("FishDex.API started at {time}.", DateTime.UtcNow);
+});
+
+lifetime.ApplicationStopping.Register(() =>
+{
+    logger.LogInformation("FishDex.API stopping at {time}.", DateTime.UtcNow);
+});
+
+lifetime.ApplicationStopped.Register(() =>
+{
+    logger.LogInformation("FishDex.API stopped at {time}.", DateTime.UtcNow);
+});
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
