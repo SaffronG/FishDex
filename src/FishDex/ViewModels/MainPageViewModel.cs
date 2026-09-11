@@ -40,6 +40,10 @@ public partial class MainPageViewModel : INotifyPropertyChanged
     {
         await _navigationService.NavigateToAsync("RecordCatch"); // navigate to the RecordCatchPage
     });
+    public Command ProfileClickedCommand => field ??= new Command(async () =>
+    {
+        await _navigationService.NavigateToAsync("Profile"); // navigate to the RecordCatchPage
+    });
     public Command FishTileClickedCommand => field ??= new Command<Fish>(async (fish) =>
     {
             await _navigationService.NavigateToAsync("Details", new Dictionary<string, object> { ["Fish"] = fish });
