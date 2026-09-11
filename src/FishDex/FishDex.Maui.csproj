@@ -72,6 +72,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\..\FishDex.AppLogic\FishDex.AppLogic.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <MauiXaml Update="FishDetailPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
