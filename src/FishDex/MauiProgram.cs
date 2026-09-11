@@ -17,18 +17,20 @@ public static class MauiProgram
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
             });
 
-        builder.Services.AddHttpClient("FishDexAPI", client =>
-        {
-            client.BaseAddress = new Uri("https://fishdexapi.azurewebsites.net/");
-        });
-
+        // Static pages
         builder.Services.AddSingleton<MainPage>();
         builder.Services.AddSingleton<MainPageViewModel>();
         builder.Services.AddSingleton<RecordCatchPage>();
         builder.Services.AddSingleton<RecordCatchPageViewModel>();
-        builder.Services.AddSingleton<FishDetailPage>();
-        builder.Services.AddSingleton<FishDetailPageViewModel>();
-        builder.Services.AddSingleton<ApiService>();
+
+        // Transient Pages
+        builder.Services.AddTransient<FishDetailPage>();
+        builder.Services.AddTransient<FishDetailPageViewModel>();
+
+        // Services
+        builder.Services.AddSingleton<INavigationService, ShellNavigationService>();
+        builder.Services.AddSingleton<IApiService, ApiService>();
+        builder.Services.AddSingleton<IPhotoStorageService, PhotoStorageService>();
 
 #if DEBUG
         builder.Logging.AddDebug();

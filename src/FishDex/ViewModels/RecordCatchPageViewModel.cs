@@ -3,15 +3,17 @@ using System.ComponentModel;
 
 namespace FishDex.ViewModels;
 
-public partial class RecordCatchPageViewModel() : INotifyPropertyChanged
+public partial class RecordCatchPageViewModel(INavigationService navservice, IPhotoStorageService photoservice) : INotifyPropertyChanged
 {
     public event PropertyChangedEventHandler? PropertyChanged;
     public string FishNameEntry { get; set; } = "Rainbow Trout";
     public decimal FishWeightEntry { get; set; } = 3.13m;
     public decimal FishLengthEntry { get; set; } = 5.4m;
-    public string FishImageSource 
-    { 
-        get => field; 
+    readonly INavigationService NavHandle = navservice;
+    readonly IPhotoStorageService PhotoHandle = photoservice;
+    public string FishImageSource
+    {
+        get => field;
         set
         {
             if (field != value)
@@ -21,22 +23,15 @@ public partial class RecordCatchPageViewModel() : INotifyPropertyChanged
             }
         }
     } = "fish_silhouette.png";
-    Page? NavHandle { get => Application.Current?.MainPage; }
     public Command SaveButtonClickedCommand => field ??= new Command(async () =>
     {
-        if (NavHandle != null)
-        {
-            await NavHandle.DisplayAlertAsync("Catch Recorded", "Your catch has been recorded successfully!", "OK");
-            await PhotoStorageService.AddImageToLocalStorage(File.OpenRead(FishImageSource), FishNameEntry);
-            await NavHandle.Navigation.PopModalAsync();
-        }
+        await NavHandle.DisplayAlertAsync("Catch Recorded", "Your catch has been recorded successfully!", "OK");
+        await PhotoHandle.AddImageToLocalStorage(File.OpenRead(FishImageSource), FishNameEntry);
+        await NavHandle.NavigateToAsync("..");
     });
     public Command CancelButtonClickedCommand => field ??= new Command(async () =>
     {
-        if (NavHandle != null)
-        {
-            await NavHandle.Navigation.PopModalAsync();
-        } 
+        await NavHandle.NavigateToAsync("..");
     });
     public Command PickPhotosAsyncCommand => field ??= new Command(async () =>
     {
@@ -45,7 +40,8 @@ public partial class RecordCatchPageViewModel() : INotifyPropertyChanged
             try
             {
                 FishImageSource = Path.Combine(FileSystem.CacheDirectory, photoList?.FirstOrDefault()?.FileName ?? "temp.jpg");
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 await NavHandle.DisplayAlertAsync("Could not open photo", ex.Message, "OK");
             }
@@ -58,7 +54,7 @@ public partial class RecordCatchPageViewModel() : INotifyPropertyChanged
     {
         if (MediaPicker.Default.IsCaptureSupported)
         {
-            FileResult photo = await MediaPicker.Default.CapturePhotoAsync();
+            FileResult? photo = await MediaPicker.Default.CapturePhotoAsync();
             if (photo != null)
             {
                 // Save the file into local storage
@@ -71,12 +67,12 @@ public partial class RecordCatchPageViewModel() : INotifyPropertyChanged
             }
             else // photo is null, user canceled the camera capture
             {
-                await NavHandle?.DisplayAlertAsync("No Photo taken", "You did not take a photo", "OK");
+                await NavHandle.DisplayAlertAsync("No Photo taken", "You did not take a photo", "OK");
             }
         }
         else // Camera capture is not supported on this device
         {
-            await NavHandle?.DisplayAlertAsync("Camera not supported", "Your device does not support camera capture.", "OK");
+            await NavHandle.DisplayAlertAsync("Camera not supported", "Your device does not support camera capture.", "OK");
         }
     });
-        }
+}

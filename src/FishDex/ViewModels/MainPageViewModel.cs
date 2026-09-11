@@ -6,15 +6,15 @@ namespace FishDex.ViewModels;
 
 public partial class MainPageViewModel : INotifyPropertyChanged
 {
-    public MainPageViewModel(ApiService apiService)
+    public MainPageViewModel(IApiService apiService, INavigationService navigationService)
     {
         _apiService = apiService;
-        FishList = apiService.DebugFishList;
-        //Dispatcher.GetForCurrentThread()?.Dispatch(async () => await LoadFishDataAsync());
+        _navigationService = navigationService;
+        FishList = apiService.DebugFishList();
     }
     public event PropertyChangedEventHandler? PropertyChanged;
-    private readonly ApiService _apiService;
-    Page? NavHandle { get => Application.Current?.MainPage; }
+    private readonly IApiService _apiService;
+    private readonly INavigationService _navigationService;
     public List<Fish> FishList
     {
         get;
@@ -38,12 +38,10 @@ public partial class MainPageViewModel : INotifyPropertyChanged
     public Command LoadFishDataCommand => field ??= new Command(async () => await _apiService.GetFishAsync());
     public Command RecordCatchClickedCommand => field ??= new Command(async () =>
     {
-        if (NavHandle != null)
-            await NavHandle.Navigation.PushModalAsync(new RecordCatchPage());
+        await _navigationService.NavigateToAsync("RecordCatch"); // navigate to the RecordCatchPage
     });
     public Command FishTileClickedCommand => field ??= new Command<Fish>(async (fish) =>
     {
-        if (NavHandle != null)
-            await NavHandle.Navigation.PushModalAsync(new FishDetailPage(fish));
+            await _navigationService.NavigateToAsync("Details", new Dictionary<string, object> { ["Fish"] = fish });
     });
 }

@@ -6,8 +6,7 @@ namespace FishDex.Services;
 /// <summary>
 /// This class provides methods for storing and retrieving images of fish catches in local storage. It allows adding images to local storage, loading the library of stored images, and persisting the library to a JSON file.
 /// </summary>
-
-public class PhotoStorageService
+public class PhotoStorageService : IPhotoStorageService
 {
     /// <summary>
     /// Adds an image to local storage and updates the library of stored images. The image is saved with a filename based on the associated fish name, and the library is persisted to a JSON file.
@@ -15,7 +14,7 @@ public class PhotoStorageService
     /// <param name="imageStream"></param>
     /// <param name="FishAssociation"></param>
     /// <returns></returns>
-    public static async Task AddImageToLocalStorage(Stream imageStream, string FishAssociation)
+    public async Task AddImageToLocalStorage(Stream imageStream, string FishAssociation)
     {
         string setFilename = $"{FishAssociation}.jpg";
         string imagePath = Path.Combine(FileSystem.AppDataDirectory, setFilename);
@@ -34,7 +33,7 @@ public class PhotoStorageService
     /// Loads the library of stored images from a JSON file in local storage. If the file does not exist, an empty list is returned. The method deserializes the JSON data into a list of StoredFishPic objects.
     /// </summary>
     /// <returns></returns>
-    public static async Task<List<StoredFishPic>> LoadLibraryAsync()
+    public async Task<List<StoredFishPic>> LoadLibraryAsync()
     {
         string libPath = Path.Combine(FileSystem.AppDataDirectory, "persistence.json");
 

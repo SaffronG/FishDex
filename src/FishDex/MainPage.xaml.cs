@@ -5,9 +5,9 @@ namespace FishDex;
 public partial class MainPage : ContentPage
 {
 
-    public MainPage()
+    public MainPage(MainPageViewModel view)
     {
         InitializeComponent();
-        BindingContext = new MainPageViewModel(new Services.ApiService());
+        BindingContext = view;
     }
 }

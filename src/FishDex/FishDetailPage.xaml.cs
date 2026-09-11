@@ -1,20 +1,13 @@
-﻿using FishDex.Models;
-using FishDex.ViewModels;
+﻿using FishDex.ViewModels;
 
 namespace FishDex
 {
-    public partial class FishDetailPage : ContentPage 
+    public partial class FishDetailPage : ContentPage
     {
-        // Parameterless ctor used by XAML/runtime
-        public FishDetailPage()
+        public FishDetailPage(FishDetailPageViewModel view)
         {
             InitializeComponent();
-        }
-
-        // Construct with a Fish and reuse the parameterless ctor
-        public FishDetailPage(Fish fish) : this()
-        {
-            BindingContext = new FishDetailPageViewModel(fish);
+            BindingContext = view;
         }
     }
 }

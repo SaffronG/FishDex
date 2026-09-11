@@ -1,18 +1,31 @@
-﻿using System.ComponentModel;
-using FishDex.Models;
+﻿using FishDex.Models;
+using FishDex.Services;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace FishDex.ViewModels;
 
-internal class FishDetailPageViewModel(Fish fish) : INotifyPropertyChanged
+public partial class FishDetailPageViewModel(INavigationService navservice) : INotifyPropertyChanged, IQueryAttributable
 {
-    public string Name { get; set; } = fish.Name;
-    public string Weight { get; set; } = $"Weight: {fish.Weight} lbs";
-    public string Length { get; set; } = $"Length: {fish.Length} inches";
-    public string TimeCaught { get; set; } = $"Time Caught: {fish.TimeCaught}";
-    public string Notes { get; set; } = fish.Notes ?? "No notes available. \nWould you like to add some?";
+    public readonly INavigationService navHandle = navservice;
+    private Fish? FishInstance;
+    public string Name => FishInstance?.Name ?? string.Empty;
+    public string Weight => $"Weight: {FishInstance?.Weight} lbs";
+    public string Length => $"Length: {FishInstance?.Length} inches";
+    public string TimeCaught => $"Time Caught: {FishInstance?.TimeCaught}";
+    public string Notes => string.IsNullOrWhiteSpace(FishInstance?.Notes) ? "No notes available.\nWould you like to add some?" : FishInstance.Notes;
     public event PropertyChangedEventHandler? PropertyChanged;
-    public Command CloseDetailModalCommand => field ??= new(async () =>
+    public Command CloseDetailModalCommand => field ??= new(async () => await navHandle.NavigateToAsync(".."));
+    public void ApplyQueryAttributes(IDictionary<string, object> query)
     {
-        await Application.Current?.MainPage?.Navigation?.PopModalAsync();
-    });
+        if (!query.TryGetValue("Fish", out var value) || value is not Fish fish) return;
+
+        FishInstance = fish;
+        OnPropertyChanged(nameof(Name));
+        OnPropertyChanged(nameof(Weight));
+        OnPropertyChanged(nameof(Length));
+        OnPropertyChanged(nameof(TimeCaught));
+        OnPropertyChanged(nameof(Notes));
+    }
+    private void OnPropertyChanged([CallerMemberName] string? name = null) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
 }
