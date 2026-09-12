@@ -19,8 +19,8 @@ maui.AddWindowsDevice()
     .WithReference(api);
 
 maui.AddAndroidEmulator()
-    .WithOtlpDevTunnel()                     
-    .WithReference(api, publicDevTunnel)        
+    .WithOtlpDevTunnel()
+    .WithReference(api, publicDevTunnel)
     .WithExplicitStart();
 
 maui.AddAndroidDevice()

@@ -13,9 +13,9 @@ public partial class RecordCatchPageViewModel(INavigationService navservice, IPh
 
     [ObservableProperty]
     public string fishImageSource = "fish_silhouette.png";
-    
+
     [RelayCommand]
-    public async Task SaveButtonClicked() 
+    public async Task SaveButtonClicked()
     {
         await NavHandle.DisplayAlertAsync("Catch Recorded", "Your catch has been recorded successfully!\nNow saving locally...", "OK");
         await _photoClient.AddImageToLocalStorage(File.OpenRead(FishImageSource), FishNameEntry);
@@ -32,7 +32,8 @@ public partial class RecordCatchPageViewModel(INavigationService navservice, IPh
     }
 
     [RelayCommand]
-    public async Task TakePhoto() {
+    public async Task TakePhoto()
+    {
         FishImageSource = await _photoClient.TakePhotoAsync() ?? "fish_silhouette.png";
     }
 }

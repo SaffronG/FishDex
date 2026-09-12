@@ -1,4 +1,5 @@
 ﻿namespace FishDex.AppLogic.Services;
+
 public interface IApiService
 {
     public Task<List<Fish>> GetFishAsync();

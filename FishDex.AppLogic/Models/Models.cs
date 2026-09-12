@@ -1,4 +1,5 @@
 ﻿namespace FishDex.AppLogic.Models;
+
 public class Fish
 {
     public Fish(string Name, decimal Length, decimal Weight, Location? LocationCaught = null)
@@ -7,9 +8,9 @@ public class Fish
         this.Length = Length;
         this.Weight = Weight;
         TimeCaught = DateTime.Now;
-        if (LocationCaught is null) 
+        if (LocationCaught is null)
             LocationCaught = new Location { Name = "Unknown" };
-        else 
+        else
             this.LocationCaught = LocationCaught;
     }
     public string Name { get; set; }
@@ -26,7 +27,7 @@ public record Location
 }
 public record StoredFishPic
 {
-    public StoredFishPic(string fileName, string fishAssociation) 
+    public StoredFishPic(string fileName, string fishAssociation)
     {
         FileName = fileName;
         FishAssociation = fishAssociation;
