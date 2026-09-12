@@ -20,7 +20,7 @@ RUN dotnet restore "FishDex.API/FishDex.API.csproj"
 COPY ["FishDex.API/", "FishDex.API/"]
 COPY ["FishDex.Dtos/", "FishDex.Dtos/"]
 
-WORKDIR "/src/Fishdex.API"
+WORKDIR "/src/FishDex.API"
 RUN dotnet build "FishDex.API.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 # This stage is used to publish the service project to be copied to the final stage
