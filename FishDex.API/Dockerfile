@@ -11,8 +11,15 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["FishDex.API/FishDex.API.csproj", "."]
-COPY ["FishDex.API/", "."]
+
+COPY ["FishDex.API/FishDex.API.csproj", "FishDex.API/"]
+COPY ["FishDex.Dtos/Fishdex.Dtos.csproj", "FishDex.Dtos/"]
+RUN dotnet run restore "FishDex.API/FishDex.API.csproj"
+
+COPY ["FishDex.API/", "FishDex.API/"]
+COPY ["FishDex.Dtos/", "FishDex.Dtos/"]
+
+WORKDIR /src/FishDex.API
 RUN dotnet build "FishDex.API.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 # This stage is used to publish the service project to be copied to the final stage
