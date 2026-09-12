@@ -12,21 +12,24 @@ FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 
+# Build and restore Testing project
 COPY ["FishDex.API/FishDex.API.csproj", "FishDex.API/"]
-COPY ["FishDex.Api/", "FishDex.API/"]
-COPY ["/../FishDex.Dtos/Fishdex.Dtos.csproj", "FishDex.Dtos/"]
-COPY ["/../FishDex.Dtos/", "FishDex.Dtos/"]
+COPY ["FishDex.Dtos/FishDex.Dtos.csproj", "FishDex.Dtos/"]
+RUN dotnet restore "FishDex.API/FishDex.API.csproj"
 
-WORKDIR /src/FishDex.API
+COPY ["FishDex.API/", "FishDex.API/"]
+COPY ["FishDex.Dtos/", "FishDex.Dtos/"]
+
+WORKDIR "/src/Fishdex.API"
 RUN dotnet build "FishDex.API.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 # This stage is used to publish the service project to be copied to the final stage
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./FishDex.API/FishDex.API.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false /p:TransformWebConfigEnabled=false
+RUN dotnet publish "FishDex.API.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false /p:TransformWebConfigEnabled=false
 
 # This stage is used in production or when running from VS in regular mode (Default when not using the Debug configuration)
 FROM base AS final
 WORKDIR /app/publish
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "./FishDex.API/FishDex.API.dll"]
+ENTRYPOINT ["dotnet", "FishDex.API.dll"]
