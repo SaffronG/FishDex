@@ -13,7 +13,7 @@ ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 
 COPY ["FishDex.API/FishDex.API.csproj", "FishDex.API/"]
-COPY ["FishDex.Dtos/Fishdex.Dtos.csproj", "FishDex.Dtos/"]
+COPY ["./FishDex.Dtos/Fishdex.Dtos.csproj", "FishDex.Dtos/"]
 RUN dotnet run restore "FishDex.API/FishDex.API.csproj"
 
 COPY ["FishDex.API/", "FishDex.API/"]
