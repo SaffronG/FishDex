@@ -14,8 +14,8 @@ WORKDIR /src
 
 COPY ["FishDex.API/FishDex.API.csproj", "FishDex.API/"]
 COPY ["FishDex.Api/", "FishDex.API/"]
-COPY ["./FishDex.Dtos/Fishdex.Dtos.csproj", "FishDex.Dtos/"]
-COPY ["./FishDex.Dtos/", "FishDex.Dtos/"]
+COPY ["/../FishDex.Dtos/Fishdex.Dtos.csproj", "FishDex.Dtos/"]
+COPY ["/../FishDex.Dtos/", "FishDex.Dtos/"]
 
 WORKDIR /src/FishDex.API
 RUN dotnet build "FishDex.API.csproj" -c $BUILD_CONFIGURATION -o /app/build
