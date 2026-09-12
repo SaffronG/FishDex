@@ -1,57 +1,47 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using FishDex.API.Data;
-using FishDex.API.Models;
+﻿using FishDex.Dtos.HelperFunctions;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace FishDex.API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class FishController(List<string> _fish, FishDexContext db) : ControllerBase
+public class FishController(PostgresContext _db) : ControllerBase
 {
-    private readonly List<string> fish = _fish;
-    private readonly FishDexContext _db = db;
-
-    // GET /api/fish/byname?search=trout
-    [HttpGet("byname")]
-    public ActionResult<List<string>> GetAll([FromQuery] string? search)
+    // GET /api/fish
+    // GET /api/fish?name=trout
+    [HttpGet]
+    public async Task<ActionResult<List<FishModel>>> GetByName([FromQuery] string? name)
     {
-        var results = fish.AsEnumerable();
+        var query = _db.Fish.AsNoTracking();
 
-        if (!string.IsNullOrWhiteSpace(search))
-        {
-            results = results.Where(f => f.Contains(search, StringComparison.OrdinalIgnoreCase));
-        }
+        if (!string.IsNullOrWhiteSpace(name))
+            query = _db.Fish.
+                Where(fish => EF.Functions.ILike(fish.Name, $"%{name}%"))
+                    .Include(f => f.LidNavigation);
 
-        return Ok(results.ToList());
+        return Ok(await query.OrderBy(f => f.Name).Include(f => f.LidNavigation).AsModel());
     }
 
-    // GET /api/fish/byindex?index=2  
+    // GET /api/fish?id=2  
     // Fish is a real object with its own Id property)
-    [HttpGet("byindex")]
-    public ActionResult<string> GetByIndex([FromQuery] int? index)
+    [HttpGet("{id:int}")]
+    public async Task<ActionResult<List<FishModel>>> GetById(int id)
     {
-        if (index < 0 || index >= fish.Count) return NotFound();
-        if (index is null ) return BadRequest();
-        return Ok(fish[(int)index]);
+        var fish = _db.Fish.AsNoTracking().Where(f => f.Id == id).Include(f => f.LidNavigation).FirstOrDefault();
+        return fish is null ? NotFound() : Ok(fish.AsModel());
     }
+
+    // GET /api/fish/locations
+    [HttpGet("locations")]
+    public async Task<ActionResult<List<LocationModel>>> GetLocations() => Ok(await _db.Locations.Select(l => l).ToListAsync());
 
     // POST /api/fish  (body: a raw string, e.g. "Tiger Trout")
     [HttpPost]
-    public ActionResult<string> Create([FromBody] string name)
+    public async Task<ActionResult<string>> Create([FromBody] FishDTO fish)
     {
-        fish.Add(name);
-        var index = fish.Count - 1;
-        return CreatedAtAction(nameof(GetByIndex), new { index }, name);
-    }
-    [HttpGet("fromdb")]
-    public ActionResult<List<string>> FromDB([FromQuery] string? source = null)
-    {
-        var names = _db.Fish
-            .AsQueryable()
-            .Where(f => string.IsNullOrWhiteSpace(source) || f.Name.Contains(source, StringComparison.OrdinalIgnoreCase))
-            .Select(f => f.Name)
-            .ToList();
-
-        return Ok(names);
+        _db.Fish.Add(fish);
+        await _db.SaveChangesAsync();
+        return CreatedAtAction(nameof(Create), fish.Id);
     }
 }
